@@ -52,11 +52,24 @@ app.put('/Komik//:id', async (req,res) => {
         }
 
         await komik.update(data);
-        res.send({ message ; 'komik berhasil diupdate', komik });
+        res.send({ message: 'komik berhasil diupdate', komik });
     }catch (err) {
-        res.status(500.send(err));
+        res.status(500).send(err);
     }
 });
 
+app.delete('/komik/id:', async (req,res) =>{
+    const id = req.params.id;
+    try{
+        const komik = await db.Komik.findByPK(id);
+        if(!komik) {
+            return res.status(404).send({message : 'komik tidak dapat ditemukan'});
+        }
 
+        await komik.destroy();
+        res.send({message: "Komik berhasil dihapus"});
+    }catch (err) {
+        res.status(500).send(err);
+    }
+})
 
