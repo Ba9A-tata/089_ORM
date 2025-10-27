@@ -22,31 +22,31 @@ db.sequelize.sync()
     })
 
 
-app.post("/Komik", async (req,res) => {
+app.post("/komik", async (req,res) => {
     const data = req.body;
     try{
-        const Komik = await db.Komik.create(data);
+        const komik = await db.Komik.create(data);
         res.send(komik);
     }catch (err) {
         res.send(err);
     }
 })
 
-app.get('/Komik', async (req,res) => {
+app.get('/komik', async (req,res) => {
     try{
-        const Komik = await db.komik.findAll();
-        res.send(err);
+        const komik = await db.Komik.findAll();
+        res.send(komik);
     }catch (err) {
         res.send(err);
     }
 });
 
-app.put('/Komik//:id', async (req,res) => {
+app.put('/Komik/:id', async (req,res) => {
     const id= req.params.id;
     const data = req.body;
 
     try{
-        const komik = await db.Komik.findByPK(id);
+        const komik = await db.Komik.findByPk(id);
         if(!komik) {
             return res.status(404).send ({ message : 'komik tidak ditemukan'});
         }
@@ -58,10 +58,10 @@ app.put('/Komik//:id', async (req,res) => {
     }
 });
 
-app.delete('/komik/id:', async (req,res) =>{
+app.delete('/komik/:id', async (req,res) =>{
     const id = req.params.id;
-    try{
-        const komik = await db.Komik.findByPK(id);
+    try {
+        const komik = await db.Komik.findByPk(id);
         if(!komik) {
             return res.status(404).send({message : 'komik tidak dapat ditemukan'});
         }
@@ -71,5 +71,5 @@ app.delete('/komik/id:', async (req,res) =>{
     }catch (err) {
         res.status(500).send(err);
     }
-})
+});
 
